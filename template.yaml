@@ -23,14 +23,14 @@ Resources:
         - AmazonRDSFullAccess
         - AWSLambdaBasicExecutionRole
       Events:
-        MovieRecommend:
+        MovieRecommendation:
           Type: Api
           Properties:
             RestApiId: !Ref MovieRecommendationApi
             Path: /counter
             Method: get
 
-  ViewCounterApi:
+  MovieRecommendationApi:
     Type: AWS::Serverless::Api
     Properties:
       Name: MovieRecommendationApi
