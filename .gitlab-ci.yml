@@ -17,9 +17,10 @@ production:
     - source venv/bin/activate
     - pip3 install numpy
     - pip3 install pandas
+    - pip3 install -r requirements.txt
     - deactivate
-    - dir
     - cd ..
+    - pip3 install -r requirements.txt
   script:
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira-movie-recommendation-engine
     - sam deploy --template-file packaged.yaml --stack-name movie-recommendation-engine --s3-bucket johnrteixeira-movie-recommendation-engine --capabilities CAPABILITY_IAM --region ca-central-1
