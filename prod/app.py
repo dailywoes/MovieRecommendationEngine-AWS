@@ -35,6 +35,7 @@ def lambda_handler(event, context):
     #input_year = event['year']
     #event["queryStringParameters"]['title']
     #print(input_title)
+    print('')
     return {
         "statusCode": 200,
         "headers": {
