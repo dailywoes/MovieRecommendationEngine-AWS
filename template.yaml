@@ -19,6 +19,7 @@ Resources:
       Description: Backend for movie recommendation
       Timeout: 3
       Policies:
+        - AmazonDynamoDBFullAccess
         - AmazonRDSFullAccess
         - AWSLambdaBasicExecutionRole
       Events:
