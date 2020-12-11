@@ -18,10 +18,7 @@ production:
     - pip3 install numpy
     - pip3 install pandas
     - deactivate
-    - mkdir python
-    - cd venv/lib/python3.8/site-packages
-    - zip -r library_layer.zip
-    - aws lambda publish-layer-version --layer-name library-layer --zip-file fileb://library_layer.zip --compatible-runtimes python3.8
+    - pip3 install -r requirements.txt
   script:
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira-movie-recommendation-engine
     - sam deploy --template-file packaged.yaml --stack-name movie-recommendation-engine --s3-bucket johnrteixeira-movie-recommendation-engine --capabilities CAPABILITY_IAM --region ca-central-1
