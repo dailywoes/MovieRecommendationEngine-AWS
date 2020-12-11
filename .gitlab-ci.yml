@@ -6,6 +6,7 @@ stages:
 production:
   stage: deploy
   before_script:
+    - apt-get install zip unzip
     - pip3 install awscli --upgrade
     - pip3 install aws-sam-cli --upgrade
     - pip3 install virtualenv --upgrade
