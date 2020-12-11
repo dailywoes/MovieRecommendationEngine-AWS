@@ -16,12 +16,8 @@ production:
     - pip3 install numpy
     - pip3 install pandas
     - deactivate
-    - dir
-    - cd venv/lib
-    - dir
-    - cd python3.8
-    - dir
-    - cd ..
+    - mkdir python
+    - cd vvenv/lib/python3.8/site-packages
     - zip -r library_layer.zip python
     - aws lambda publish-layer-version --layer-name library-layer --zip-file fileb://library_layer.zip --compatible-runtimes python3.8
   script:
