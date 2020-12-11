@@ -10,8 +10,8 @@ production:
     - pip3 install aws-sam-cli --upgrade
     - mkdir folder
     - cd folder
-    - virtualenv venv
-    - source ./venv/bin/activate
+    - python -m virtualenv myvenv
+    - source myvenv/bin/activate
     - pip3 install pandas
     - deactivate
     - mkdir python
