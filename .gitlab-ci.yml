@@ -20,7 +20,7 @@ production:
     - deactivate
     - mkdir python
     - cd venv/lib/python3.8/site-packages
-    - zip -r library_layer.zip python
+    - zip -r library_layer.zip
     - aws lambda publish-layer-version --layer-name library-layer --zip-file fileb://library_layer.zip --compatible-runtimes python3.8
   script:
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira-movie-recommendation-engine
