@@ -2,6 +2,7 @@ import json
 import boto3
 import rds_config
 import pymysql
+import pandas
 
 rds_host = 'imdbdataset.cylq1mw66qwl.ca-central-1.rds.amazonaws.com'
 username = rds_config.masterUsername
