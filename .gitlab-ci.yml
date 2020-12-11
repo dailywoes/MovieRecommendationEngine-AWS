@@ -8,6 +8,18 @@ production:
   before_script:
     - pip3 install awscli --upgrade
     - pip3 install aws-sam-cli --upgrade
+    - mkdir folder
+    - cd folder
+    - virtualenv v-env
+    - source ./v-env/bin/activate
+    - pip3 install pandas
+    - deactivate
+    - mkdir python
+    - cd python
+    - cp -r ../v-venv/lib64/python3.8/dist-packages/*
+    - cd ..
+    - zip -r panda_layer.zip python
+    - aws lambda publish-layer-version --layer-name pandas --zip-file fileb://panda_layer.zip --compatible-runtimes python3.8
   script:
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira-movie-recommendation-engine
     - sam deploy --template-file packaged.yaml --stack-name movie-recommendation-engine --s3-bucket johnrteixeira-movie-recommendation-engine --capabilities CAPABILITY_IAM --region ca-central-1

@@ -9,7 +9,7 @@ Globals:
     MemorySize: 128
 
 Resources:
-  ViewCounterFunction:
+  MovieRecommendationFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: MovieRecommendationFunction
@@ -27,7 +27,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref MovieRecommendationApi
-            Path: /counter
+            Path: /recommend
             Method: get
 
   MovieRecommendationApi:
@@ -39,6 +39,3 @@ Resources:
       EndpointConfiguration: Regional
       OpenApiVersion: 3.0.1
       StageName: Prod
-      Variables:
-        key1: title
-        key2: year
