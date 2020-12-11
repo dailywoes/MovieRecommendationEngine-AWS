@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Backend for movie recommendation engine
+
+Globals:
+  #https://github.com/awslabs/serverless-application-model/blob/develop/docs/globals.rst
+  Function:
+    Runtime: python3.8
+    MemorySize: 128
+
+Resources:
+  ViewCounterFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: MovieRecommendationFunction
+      CodeUri: prod/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Description: Backend for movie recommendation
+      Timeout: 3
+      Policies:
+        - AmazonRDSFullAccess
+        - AWSLambdaBasicExecutionRole
+      Events:
+        MovieRecommend:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MovieRecommendationApi
+            Path: /counter
+            Method: get
+
+  ViewCounterApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: MovieRecommendationApi
+      Cors:
+        AllowOrigin: "'*'"
+      EndpointConfiguration: Regional
+      OpenApiVersion: 3.0.1
+      StageName: Prod
+      Variables:
+        key1: title
+        key2: year
