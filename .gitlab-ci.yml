@@ -6,9 +6,8 @@ stages:
 production:
   stage: deploy
   before_script:
-    - sudo apt-get update
-    - sudo apt-cache gencaches
-    - sudo apt-get install -y zip unzip
+    - apt-get update
+    - apt-get install -y zip unzip
     - pip3 install awscli --upgrade
     - pip3 install aws-sam-cli --upgrade
     - pip3 install virtualenv --upgrade
