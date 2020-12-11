@@ -17,7 +17,7 @@ production:
     - pip3 install pandas
     - deactivate
     - dir
-    - cd venv/lib64/python3.8/*
+    - cd venv
     - dir
     - cd ..
     - zip -r library_layer.zip python
