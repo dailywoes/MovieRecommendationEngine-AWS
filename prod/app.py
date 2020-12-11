@@ -36,6 +36,7 @@ def lambda_handler(event, context):
     #event["queryStringParameters"]['title']
     #print(input_title)
     print('')
+    print('')
     return {
         "statusCode": 200,
         "headers": {
