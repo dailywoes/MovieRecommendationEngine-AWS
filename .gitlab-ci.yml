@@ -17,7 +17,8 @@ production:
     - pip3 install pandas
     - deactivate
     - dir
-    - cd vvenv/lib64/python3.8/site-packages/*
+    - cd venv/lib64/python3.8/*
+    - dir
     - cd ..
     - zip -r library_layer.zip python
     - aws lambda publish-layer-version --layer-name library-layer --zip-file fileb://library_layer.zip --compatible-runtimes python3.8
