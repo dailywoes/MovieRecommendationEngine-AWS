@@ -19,6 +19,7 @@ production:
     - pip3 install pandas
     - deactivate
     - dir
+    - cd ..
   script:
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira-movie-recommendation-engine
     - sam deploy --template-file packaged.yaml --stack-name movie-recommendation-engine --s3-bucket johnrteixeira-movie-recommendation-engine --capabilities CAPABILITY_IAM --region ca-central-1
