@@ -11,16 +11,17 @@ production:
     - pip3 install virtualenv --upgrade
     - mkdir folder
     - cd folder
-    - python -m virtualenv myvenv
-    - source myvenv/bin/activate
+    - python -m virtualenv venv
+    - source venv/bin/activate
+    - pip3 install numpy
     - pip3 install pandas
     - deactivate
     - mkdir python
     - cd python
-    - cp -r ../v-venv/lib64/python3.8/dist-packages/*
+    - cp -r ../vvenv/lib64/python3.8/dist-packages/*
     - cd ..
-    - zip -r panda_layer.zip python
-    - aws lambda publish-layer-version --layer-name pandas --zip-file fileb://panda_layer.zip --compatible-runtimes python3.8
+    - zip -r library_layer.zip python
+    - aws lambda publish-layer-version --layer-name library-layer --zip-file fileb://library_layer.zip --compatible-runtimes python3.8
   script:
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira-movie-recommendation-engine
     - sam deploy --template-file packaged.yaml --stack-name movie-recommendation-engine --s3-bucket johnrteixeira-movie-recommendation-engine --capabilities CAPABILITY_IAM --region ca-central-1
