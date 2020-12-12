@@ -13,9 +13,10 @@ def lambda_handler(event, context):
 
     input_title = event['queryStringParameters']['title']
     input_year = event['queryStringParameters']['year']
+
     print(input_title)
     print(input_year)
-    input_title = input_title.str.replace('_', ' ')
+    input_title = input_title.replace('_', ' ')
 
     input_coord = imdb_movie_map[(imdb_movie['imdb_title'].str.contains(input_title)
                                               & (imdb_movie['imdb_year'] == input_year))]
@@ -33,8 +34,6 @@ def lambda_handler(event, context):
     result = result['imdb_title']
 
     print(result)
-    print('')
-    print('')
     return {
         "statusCode": 200,
         "headers": {
