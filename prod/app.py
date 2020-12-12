@@ -20,19 +20,19 @@ def lambda_handler(event, context):
     input_coord = imdb_movie_map[(imdb_movie['imdb_title'].str.contains(input_title)
                                           & (imdb_movie['imdb_year'] == input_year))]
     print(imdb_movie_map)
-    for column, contents in imdb_movie_map.items():
-        imdb_movie_map[column] = imdb_movie_map[column].subtract(input_coord.iloc[:, imdb_movie_map.columns.
-                                                     get_loc(column)].values[0], fill_value=0)
-        imdb_movie_map[column] = imdb_movie_map[column].pow(2)
-    imdb_movie_map['sum'] = imdb_movie_map.sum(axis=1, skipna=True)
-    imdb_movie_map['dist'] = imdb_movie_map['sum'].pow(1. / 2)
-    imdb_movie_map['rating'] = imdb_movie['imdb_rating'].multiply(-1)
-
-    result = imdb_movie_map.nsmallest(25, ['dist'])
-    result = imdb_movie.loc[result.nsmallest(10, ['rating']).index]
-    result = result['imdb_title']
-
-    print(result)
+#     for column, contents in imdb_movie_map.items():
+#         imdb_movie_map[column] = imdb_movie_map[column].subtract(input_coord.iloc[:, imdb_movie_map.columns.
+#                                                      get_loc(column)].values[0], fill_value=0)
+#         imdb_movie_map[column] = imdb_movie_map[column].pow(2)
+#     imdb_movie_map['sum'] = imdb_movie_map.sum(axis=1, skipna=True)
+#     imdb_movie_map['dist'] = imdb_movie_map['sum'].pow(1. / 2)
+#     imdb_movie_map['rating'] = imdb_movie['imdb_rating'].multiply(-1)
+#
+#     result = imdb_movie_map.nsmallest(25, ['dist'])
+#     result = imdb_movie.loc[result.nsmallest(10, ['rating']).index]
+#     result = result['imdb_title']
+#
+#     print(result)
     return {
         "statusCode": 200,
         "headers": {
@@ -40,5 +40,6 @@ def lambda_handler(event, context):
         },
         #Lambda thinks the entry is a decimal for some reason, cast
         #the value to an integer since json doesnt accept decimal
-        "body": json.dumps(result.to_json(orient='values'))
+#         "body": json.dumps(result.to_json(orient='values'))
+        "body": json.dumps(event['queryStringParameters']['title'])
     }
