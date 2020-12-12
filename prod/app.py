@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     con = pymysql.connect(host=rds_host,user=useruser,password=userpass,port=3306,database='imdbdataset')
     imdb_movie = pd.read_sql_query('select * from imdb_movie_clean_new;', con)
     print(imdb_movie)
-
+    print(test)
     dynamodb = boto3.resource('dynamodb',region_name='ca-central-1')
     table = dynamodb.Table('webpage')
     item = table.get_item(
