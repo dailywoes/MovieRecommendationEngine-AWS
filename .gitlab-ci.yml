@@ -15,7 +15,6 @@ production:
     - source venv/bin/activate
     - pip3 install numpy
     - pip3 install pandas
-    - pip3 install rds_config
     - pip3 install pymysql
     - sam build
     - deactivate

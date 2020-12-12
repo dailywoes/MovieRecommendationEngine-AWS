@@ -1,20 +1,16 @@
 import json
 import boto3
-import rds_config
 import pymysql
 import pandas
 
-rds_host = 'imdbdataset.cylq1mw66qwl.ca-central-1.rds.amazonaws.com'
-username = rds_config.masterUsername
-password = rds_config.masterPassword
-database = rds_config.imdbdataset
-
-try:
-    con = pymysql.connect(rds_host, user=username, passwd=password, db=database, connect_timeout=5)
-except pymysql.MySQLError as e:
-    print('whoops')
-
 def lambda_handler(event, context):
+    rds_host = 'imdbdataset.cylq1mw66qwl.ca-central-1.rds.amazonaws.com'
+    useruser = 'masterUsername'
+    userpass = 'masterPassword'
+    con = pymysql.connect(host=rds_host,user=useruser,password=userpass,port=3306,database='imdbdataset')
+    imdb_movie = pd.read_sql_query('select * from imdb_movie_clean_new;', con)
+    print(imdb_movie)
+
     dynamodb = boto3.resource('dynamodb',region_name='ca-central-1')
     table = dynamodb.Table('webpage')
     item = table.get_item(
