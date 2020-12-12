@@ -41,5 +41,5 @@ def lambda_handler(event, context):
         #Lambda thinks the entry is a decimal for some reason, cast
         #the value to an integer since json doesnt accept decimal
 #         "body": json.dumps(result.to_json(orient='values'))
-        "body": json.dumps(input_coord)
+        "body": input_coord.to_json(orient='values')
     }
