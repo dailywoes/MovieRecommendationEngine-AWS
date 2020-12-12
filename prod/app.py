@@ -16,11 +16,10 @@ def lambda_handler(event, context):
 
     print(input_title)
     print(input_year)
-    input_title = input_title.replace('_', ' ')
 
     input_coord = imdb_movie_map[(imdb_movie['imdb_title'].str.contains(input_title)
-                                              & (imdb_movie['imdb_year'] == input_year))]
-
+                                          & (imdb_movie['imdb_year'] == input_year))]
+    print(imdb_movie_map)
     for column, contents in imdb_movie_map.items():
         imdb_movie_map[column] = imdb_movie_map[column].subtract(input_coord.iloc[:, imdb_movie_map.columns.
                                                      get_loc(column)].values[0], fill_value=0)
@@ -41,5 +40,5 @@ def lambda_handler(event, context):
         },
         #Lambda thinks the entry is a decimal for some reason, cast
         #the value to an integer since json doesnt accept decimal
-        "body": json.dumps(event["queryStringParameters"]['title'])
+        "body": json.dumps(result.to_json(orient='values'))
     }
