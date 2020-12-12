@@ -12,7 +12,9 @@ def lambda_handler(event, context):
     imdb_movie_map = pd.read_sql_query('select * from imdb_movie_map;', con, index_col=['index'])
 
     input_title = event['queryStringParameters']['title']
-    input_year = event['queryStringParameters']['year']
+    input_year = int(event['queryStringParameters']['year'])
+
+    input_title = input_title.replace('_', ' ')
 
     print(input_title)
     print(input_year)
