@@ -1,7 +1,7 @@
 import json
 import boto3
 import pymysql
-import pandas
+import pandas as pd
 
 def lambda_handler(event, context):
     rds_host = 'imdbdataset.cylq1mw66qwl.ca-central-1.rds.amazonaws.com'
