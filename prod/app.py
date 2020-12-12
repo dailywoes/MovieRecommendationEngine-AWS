@@ -11,11 +11,14 @@ def lambda_handler(event, context):
     imdb_movie = pd.read_sql_query('select * from imdb_movie_clean_new;', con)
     imdb_movie_map = pd.read_sql_query('select * from imdb_movie_map;', con, index_col=['index'])
 
-    input_title = 'Iron Man'
-    input_year = 2008
+    input_title = event['queryStringParameters']['title']
+    input_year = event['queryStringParameters']['year']
+    print(input_title)
+    print(input_year)
+    input_title = input_title.str.replace('_', ' ')
 
-    input_coord = imdb_movie_map[(imdb_movie['imdb_title'].str.contains('Iron Man')
-                                              & (imdb_movie['imdb_year'] == 2008))]
+    input_coord = imdb_movie_map[(imdb_movie['imdb_title'].str.contains(input_title)
+                                              & (imdb_movie['imdb_year'] == input_year))]
 
     for column, contents in imdb_movie_map.items():
         imdb_movie_map[column] = imdb_movie_map[column].subtract(input_coord.iloc[:, imdb_movie_map.columns.
@@ -30,28 +33,6 @@ def lambda_handler(event, context):
     result = result['imdb_title']
 
     print(result)
-    
-    dynamodb = boto3.resource('dynamodb',region_name='ca-central-1')
-    table = dynamodb.Table('webpage')
-    item = table.get_item(
-        Key={
-            "pageId":0,
-        }
-        )
-    table.update_item(
-        Key={
-            "pageId":0,
-        },
-        UpdateExpression='SET quantity = :val1',
-        ExpressionAttributeValues={
-            ':val1': item['Item']['quantity'] + 1
-        }
-    )
-    rds = boto3.resource('rds')
-    #input_title = event['title']
-    #input_year = event['year']
-    #event["queryStringParameters"]['title']
-    #print(input_title)
     print('')
     print('')
     return {
